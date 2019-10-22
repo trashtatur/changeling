@@ -1,6 +1,6 @@
 ![alt text](images/changeling.png )
 
-#CHANGELING
+# CHANGELING
 ## A wonderdraft profile manager
 
 Changeling manages profiles for wonderdraft based on provided .yml configuration files.
