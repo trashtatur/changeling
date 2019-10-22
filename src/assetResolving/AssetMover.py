@@ -21,4 +21,16 @@ class AssetMover:
         ]
         return active_modules
 
+    def determine_inactive_modules(self):
+        inactive_modules = [
+            os.path.join(Pathfinder.get_deactivated_folder_path(), root)
+            for root in os.listdir(Pathfinder.get_deactivated_folder_path())
+        ]
+        return inactive_modules
 
+
+bla = AssetMover(ProfileResolver())
+Pathfinder.create_profile_manager_folderstructure()
+Pathfinder.create_deactivated_modules_folder()
+Pathfinder.create_logger_directory()
+print(bla.determine_inactive_modules())

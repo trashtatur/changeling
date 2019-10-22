@@ -1,23 +1,56 @@
+import logging
 import os
-import yaml
 
+from src.file_interactions.YMLConfigReader import YMLConfigReader
 from src.util import Util
 
 
 class Pathfinder:
 
     @staticmethod
+    def create_deactivated_modules_folder():
+        try:
+            os.mkdir(
+                os.path.join(Pathfinder.get_wonderdraft_userfolder(),
+                             YMLConfigReader.get_profile_manager_directory_name(),
+                             YMLConfigReader.get_deactivated_modules_folder_name()
+                             )
+            )
+        except OSError as exception:
+            logging.getLogger('debug').exception('You can\'t create the inactive assets folder twice')
+
+    @staticmethod
+    def create_profile_manager_folderstructure():
+        try:
+            os.mkdir(
+                os.path.join(
+                    Pathfinder.get_wonderdraft_userfolder(),
+                    YMLConfigReader.get_profile_manager_directory_name()
+                )
+            )
+        except OSError as exception:
+            logging.getLogger('debug').exception('You can\'t create the profile manager folder twice')
+
+    @staticmethod
+    def create_logger_directory():
+        try:
+            os.mkdir(
+                os.path.join(
+                    Pathfinder.get_wonderdraft_userfolder(),
+                    YMLConfigReader.get_profile_manager_directory_name(),
+                    YMLConfigReader.get_logger_directory_name()
+                )
+            )
+        except OSError as exception:
+            logging.getLogger('debug').exception('You can\'t create the logger folder twice')
+
+    # GET DIRECTORY PATHS
+
+    @staticmethod
     def get_profile_directory():
         return os.path.join(
             Util.get_root(),
             'profiles'
-        )
-
-    @staticmethod
-    def get_deactivated_folder_path():
-        return os.path.join(
-            Pathfinder.get_wonderdraft_userfolder(),
-            Pathfinder.get_deactivated_modules_folder_name()
         )
 
     @staticmethod
@@ -29,24 +62,19 @@ class Pathfinder:
         return os.path.join(Pathfinder.__appdata_path(), 'Wonderdraft', 'assets')
 
     @staticmethod
-    def create_deactivated_modules_folder():
-        os.mkdir(
-            os.path.join(Pathfinder.get_wonderdraft_userfolder(),
-                         Pathfinder.get_deactivated_modules_folder_name()
-                         )
+    def get_deactivated_folder_path():
+        return os.path.join(
+            Pathfinder.get_wonderdraft_userfolder(),
+            YMLConfigReader.get_profile_manager_directory_name(),
+            YMLConfigReader.get_deactivated_modules_folder_name()
         )
 
     @staticmethod
-    def get_deactivated_modules_folder_name():
-        config_file_location = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)),
-            'config',
-            'config.yml'
+    def get_logger_directory_path():
+        return os.path.join(
+            Pathfinder.get_wonderdraft_userfolder(),
+            YMLConfigReader.get_profile_manager_directory_name(),
+            YMLConfigReader.get_logger_directory_name()
         )
-        with open(config_file_location) as configfile:
-            try:
-                read_yml_config = yaml.safe_load(configfile)
-                return read_yml_config['inactiveModulesFolder']
-            except yaml.YAMLError as exception:
-                # TODO Logger!
-                print(exception)
+
+

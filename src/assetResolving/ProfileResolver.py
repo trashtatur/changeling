@@ -1,3 +1,4 @@
+import logging
 import os
 
 import yaml
@@ -16,17 +17,18 @@ class ProfileResolver:
 
         return [self.__find_full_path_for_foldername(foldername) for foldername in foldernamelist]
 
-
     def __open_profile_by_name(self, profilename: str):
 
-        with open(os.path.join(Pathfinder.get_profile_directory(), profilename+'.yml')) as profile:
-            try:
-                return yaml.safe_load(profile)
-            except yaml.YAMLError as exception:
-                # TODO Logger!!!
-                print(exception)
+        try:
+            with open(os.path.join(Pathfinder.get_profile_directory(), profilename + '.yml')) as profile:
+                try:
+                    return yaml.safe_load(profile)
+                except yaml.YAMLError as exception:
+                    logging.getLogger('debug').exception("YAML File seems to be tampered. Have you changed keys?")
+        except OSError as exception:
+            logging.getLogger('debug').exception(
+                'Profile could not be opened. Was it the right name? Does it exist?')
 
     def __find_full_path_for_foldername(self, foldername):
 
         return os.path.join(Pathfinder.get_wonderdraft_userfolder(), foldername)
-
