@@ -1,0 +1,4 @@
+name: dungeon
+modules:
+  - "Dungeon Architecture"
+  - "Dungeon Interior"

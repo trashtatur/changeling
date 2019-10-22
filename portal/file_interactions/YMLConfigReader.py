@@ -3,7 +3,7 @@ import os
 
 import yaml
 
-from src.util import Util
+from portal.util import Util
 
 
 class YMLConfigReader:
@@ -39,7 +39,7 @@ class YMLConfigReader:
     def __get_config_file_location():
         return os.path.join(
             Util.get_root(),
-            'src',
+            'portal',
             'config',
             'config.yml'
         )

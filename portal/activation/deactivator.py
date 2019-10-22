@@ -1,6 +1,6 @@
 import shutil
 
-from src.pathfinder import Pathfinder
+from portal.pathfinder import Pathfinder
 
 
 class Deactivator:

@@ -1,7 +1,7 @@
 import os
 
-from src.assetResolving.ProfileResolver import ProfileResolver
-from src.pathfinder import Pathfinder
+from portal.assetResolving.ProfileResolver import ProfileResolver
+from portal.pathfinder import Pathfinder
 
 
 class AssetMover:
@@ -28,9 +28,3 @@ class AssetMover:
         ]
         return inactive_modules
 
-
-bla = AssetMover(ProfileResolver())
-Pathfinder.create_profile_manager_folderstructure()
-Pathfinder.create_deactivated_modules_folder()
-Pathfinder.create_logger_directory()
-print(bla.determine_inactive_modules())
