@@ -16,6 +16,10 @@ class InstallHandler:
         if YMLConfigValidator.validate_profile(opened_profile):
             if os.path.splitext(profilepath)[1] == '.yml':
                 self.__act_according_to_mode(profilepath, force)
+            elif os.path.splitext(profilepath)[1] == '.yaml':
+                new_path = self.__change_file_ending(profilepath)
+                self.__act_according_to_mode(new_path, force)
+
         else:
             click.echo('Profile is not correctly formatted. Make sure to write it properly')
 
@@ -37,3 +41,9 @@ class InstallHandler:
             click.echo('Installing profile: ' + os.path.splitext(profilepath)[0])
             shutil.copy(profilepath, Pathfinder.get_profile_directory())
 
+
+    def __change_file_ending(self, profilepath):
+
+        new_name = profilepath[:-5]+'.yml'
+        shutil.move(profilepath, new_name)
+        return new_name

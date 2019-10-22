@@ -1,4 +1,3 @@
-import logging
 import os
 
 from changeling.file_interactions.YMLConfigReader import YMLConfigReader
@@ -6,8 +5,6 @@ from changeling.util import Util
 
 
 class Pathfinder:
-
-    # GET DIRECTORY PATHS
 
     @staticmethod
     def get_profile_directory():

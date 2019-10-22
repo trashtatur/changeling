@@ -1,9 +1,9 @@
-import os
 import click
 
 from changeling.CLI.handlers.InstallHandler import InstallHandler
 from changeling.CLI.handlers.ListHandler import ListHandler
 from changeling.CLI.handlers.SetupHandler import SetupHandler
+from changeling.CLI.handlers.ShowProfileHandler import ShowProfileHandler
 from changeling.CLI.helper import is_setup, setup_logging
 from changeling.file_interactions.YMLConfigReader import YMLConfigReader
 
@@ -11,6 +11,7 @@ from changeling.file_interactions.YMLConfigReader import YMLConfigReader
 setuphandler = SetupHandler()
 installhandler = InstallHandler()
 listhandler = ListHandler()
+show_profile_handler = ShowProfileHandler()
 
 
 @setup_logging
@@ -36,6 +37,12 @@ def install_profile(filename, force):
 @click.command()
 def list_profiles():
     click.echo(listhandler.list_profiles())
+
+@is_setup
+@click.command()
+@click.argument('profilename')
+def show_profile(profilename):
+    show_profile_handler.show_profile(profilename)
 
 
 @is_setup
@@ -67,6 +74,7 @@ cli.add_command(activate)
 cli.add_command(deactivate)
 cli.add_command(configure)
 cli.add_command(list_profiles)
+cli.add_command(show_profile)
 
 if __name__ == '__main__':
     cli()
