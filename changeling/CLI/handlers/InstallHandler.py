@@ -15,10 +15,7 @@ class InstallHandler:
         opened_profile = self.open_file(profilepath)
         if YMLConfigValidator.validate_profile(opened_profile):
             if os.path.splitext(profilepath)[1] == '.yml':
-                click.echo('Installing profile: '+os.path.splitext(profilepath)[0])
-                shutil.copy(profilepath, Pathfinder.get_profile_directory())
-                # TODO look for force parameter and respect it
-                # TODO Change file ending to YML
+                self.__act_according_to_mode(profilepath, force)
         else:
             click.echo('Profile is not correctly formatted. Make sure to write it properly')
 
@@ -29,3 +26,14 @@ class InstallHandler:
                 return conf
             except yaml.YAMLError as error:
                 logging.getLogger('debug').exception('YML File could not be opened')
+
+    def __act_according_to_mode(self, profilepath, mode):
+        all_profiles = os.listdir(Pathfinder.get_profile_directory())
+        if not mode and os.path.basename(profilepath) in all_profiles:
+            click.echo('Not installing profile: ' + os.path.splitext(profilepath)[0])
+            click.echo('to do so anyway, exectute again with option --force')
+            pass
+        else:
+            click.echo('Installing profile: ' + os.path.splitext(profilepath)[0])
+            shutil.copy(profilepath, Pathfinder.get_profile_directory())
+
