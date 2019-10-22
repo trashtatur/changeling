@@ -5,8 +5,8 @@ import shutil
 import click
 import yaml
 
-from portal.file_interactions.YMLConfigValidator import YMLConfigValidator
-from portal.pathfinder import Pathfinder
+from changeling.file_interactions.YMLConfigValidator import YMLConfigValidator
+from changeling.pathfinder import Pathfinder
 
 
 class InstallHandler:

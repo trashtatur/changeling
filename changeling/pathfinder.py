@@ -1,8 +1,8 @@
 import logging
 import os
 
-from portal.file_interactions.YMLConfigReader import YMLConfigReader
-from portal.util import Util
+from changeling.file_interactions.YMLConfigReader import YMLConfigReader
+from changeling.util import Util
 
 
 class Pathfinder:

@@ -3,15 +3,15 @@ import os
 
 import click
 
-from portal import definitions
-from portal.file_interactions.YMLConfigReader import YMLConfigReader
-from portal.pathfinder import Pathfinder
+from changeling import definitions
+from changeling.file_interactions.YMLConfigReader import YMLConfigReader
+from changeling.pathfinder import Pathfinder
 
 
 class SetupHandler:
 
     def setup(self):
-        click.echo('Create portal manager directory if it doesn\'t exist yet')
+        click.echo('Create changeling manager directory if it doesn\'t exist yet')
         if not self.__sanity_check_main_dir():
             self.__create_profile_manager_folderstructure()
         click.echo('Creating logging directory if it doesn\'t exist yet')

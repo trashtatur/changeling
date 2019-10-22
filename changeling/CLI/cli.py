@@ -1,11 +1,11 @@
 import os
 import click
 
-from portal.CLI.handlers.InstallHandler import InstallHandler
-from portal.CLI.handlers.ListHandler import ListHandler
-from portal.CLI.handlers.SetupHandler import SetupHandler
-from portal.CLI.helper import is_setup, setup_logging
-from portal.file_interactions.YMLConfigReader import YMLConfigReader
+from changeling.CLI.handlers.InstallHandler import InstallHandler
+from changeling.CLI.handlers.ListHandler import ListHandler
+from changeling.CLI.handlers.SetupHandler import SetupHandler
+from changeling.CLI.helper import is_setup, setup_logging
+from changeling.file_interactions.YMLConfigReader import YMLConfigReader
 
 
 setuphandler = SetupHandler()

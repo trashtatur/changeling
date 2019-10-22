@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='portal',
+    name='changeling',
     version='0.2',
     packages = find_packages(),
     author= 'Andreas Hoerster',
@@ -12,6 +12,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        portal=portal.CLI.cli:cli
+        changeling=changeling.CLI.cli:cli
     ''',
 )

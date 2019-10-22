@@ -1,6 +1,6 @@
 import os
 
-from portal.pathfinder import Pathfinder
+from changeling.pathfinder import Pathfinder
 
 
 class ListHandler:

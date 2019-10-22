@@ -3,10 +3,10 @@ import os
 
 import click
 
-from portal import definitions
-from portal.CLI.handlers.SetupHandler import SetupHandler
-from portal.file_interactions.YMLConfigReader import YMLConfigReader
-from portal.pathfinder import Pathfinder
+from changeling import definitions
+from changeling.CLI.handlers.SetupHandler import SetupHandler
+from changeling.file_interactions.YMLConfigReader import YMLConfigReader
+from changeling.pathfinder import Pathfinder
 
 
 def is_setup(func):

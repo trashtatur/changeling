@@ -1,7 +1,7 @@
 import os
 
-from portal.assetResolving.ProfileResolver import ProfileResolver
-from portal.pathfinder import Pathfinder
+from changeling.assetResolving.ProfileResolver import ProfileResolver
+from changeling.pathfinder import Pathfinder
 
 
 class AssetMover:

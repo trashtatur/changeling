@@ -3,7 +3,7 @@ import os
 
 import yaml
 
-from portal.pathfinder import Pathfinder
+from changeling.pathfinder import Pathfinder
 
 
 class ProfileResolver:
