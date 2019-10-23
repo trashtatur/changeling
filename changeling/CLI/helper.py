@@ -3,7 +3,6 @@ import os
 
 import click
 
-from changeling import definitions
 from changeling.CLI.handlers.SetupHandler import SetupHandler
 from changeling.file_interactions.YMLConfigReader import YMLConfigReader
 from changeling.pathfinder import Pathfinder
@@ -28,5 +27,5 @@ def setup_logging(func):
                                    YMLConfigReader.get_logger_directory_name())):
         logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)-8s %(message)s',
                             datefmt='%a, %d %b %Y %H:%M:%S',
-                            filename=os.path.join(definitions.LOGGER_DIR, 'debug.log'))
+                            filename=os.path.join(Pathfinder.get_logger_directory_path(), 'debug.log'))
     return func

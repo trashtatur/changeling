@@ -1,5 +1,6 @@
 import click
 
+from changeling.CLI.handlers.ActivateHandler import ActivateHandler
 from changeling.CLI.handlers.InstallHandler import InstallHandler
 from changeling.CLI.handlers.ListHandler import ListHandler
 from changeling.CLI.handlers.SetupHandler import SetupHandler
@@ -7,11 +8,11 @@ from changeling.CLI.handlers.ShowProfileHandler import ShowProfileHandler
 from changeling.CLI.helper import is_setup, setup_logging
 from changeling.file_interactions.YMLConfigReader import YMLConfigReader
 
-
 setuphandler = SetupHandler()
 installhandler = InstallHandler()
 listhandler = ListHandler()
 show_profile_handler = ShowProfileHandler()
+activatehandler = ActivateHandler()
 
 
 @setup_logging
@@ -33,7 +34,9 @@ def setup():
               help='Lets you install from the current setup. Default is --normal')
 def install_profile(filename, force, from_current):
     if from_current:
-        if click.confirm('Will install from current setup. Filename provided will be used as profile name. Is that ok?'):
+        if click.confirm(
+                'Will install from current setup. Filename provided will be used as profile name. Is that ok?',
+                default=True):
             installhandler.install_from_current(filename, force)
         else:
             filename_new = click.prompt('Please provide a name for the profile to be created')
@@ -46,6 +49,7 @@ def install_profile(filename, force, from_current):
 @click.command()
 def list_profiles():
     click.echo(listhandler.list_profiles())
+
 
 @is_setup
 @click.command()
@@ -66,10 +70,10 @@ def configure(loggingfolder, inactivefolder):
 @is_setup
 @click.command()
 @click.argument('profilename')
-def activate(profilename):
-    click.echo('activate')
-
-
+@click.option('--dryrun/--actual', default=False,
+              help='Lets you simulate what would be activated and what not. Default is --actual')
+def activate(profilename, dryrun):
+    activatehandler.activate(profilename, dryrun)
 
 
 cli.add_command(setup)

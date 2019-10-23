@@ -3,7 +3,6 @@ import os
 
 import click
 
-from changeling import definitions
 from changeling.file_interactions.YMLConfigReader import YMLConfigReader
 from changeling.pathfinder import Pathfinder
 
