@@ -1,11 +1,14 @@
+import os
+
 import click
 
 from changeling.CLI.handlers.ActivateHandler import ActivateHandler
+from changeling.CLI.handlers.ConfigureHandler import ConfigureHandler
 from changeling.CLI.handlers.InstallHandler import InstallHandler
 from changeling.CLI.handlers.ListHandler import ListHandler
 from changeling.CLI.handlers.SetupHandler import SetupHandler
 from changeling.CLI.handlers.ShowProfileHandler import ShowProfileHandler
-from changeling.CLI.helper import is_setup, setup_logging
+from changeling.CLI.helper import is_setup, setup_logging, init_colorama
 from changeling.file_interactions.YMLConfigReader import YMLConfigReader
 
 setuphandler = SetupHandler()
@@ -13,9 +16,10 @@ installhandler = InstallHandler()
 listhandler = ListHandler()
 show_profile_handler = ShowProfileHandler()
 activatehandler = ActivateHandler()
-
+configurehandler = ConfigureHandler()
 
 @setup_logging
+@init_colorama
 @click.group()
 def cli():
     pass
@@ -33,16 +37,19 @@ def setup():
 @click.option('--from-current/--normal', default=False,
               help='Lets you install from the current setup. Default is --normal')
 def install_profile(filename, force, from_current):
-    if from_current:
-        if click.confirm(
-                'Will install from current setup. Filename provided will be used as profile name. Is that ok?',
-                default=True):
-            installhandler.install_from_current(filename, force)
-        else:
-            filename_new = click.prompt('Please provide a name for the profile to be created')
-            installhandler.install_from_current(filename_new, force)
+    if os.path.splitext(filename)[0] == 'all':
+        click.echo('You can\'t name your profile "all". It is a reserved name. Pick something different')
     else:
-        installhandler.install(filename, force)
+        if from_current:
+            if click.confirm(
+                    'Will install from current setup. Filename provided will be used as profile name. Is that ok?',
+                    default=True):
+                installhandler.install_from_current(filename, force)
+            else:
+                filename_new = click.prompt('Please provide a name for the profile to be created')
+                installhandler.install_from_current(filename_new, force)
+        else:
+            installhandler.install(filename, force)
 
 
 @is_setup
@@ -60,11 +67,14 @@ def show_profile(profilename):
 
 @is_setup
 @click.command()
+@click.option('--changelingfolder', default=YMLConfigReader.get_changeling_manager_directory_name(),
+              help='Rename main changeling folder folder')
 @click.option('--loggingfolder', default=YMLConfigReader.get_logger_directory_name(), help='Rename logging folder')
 @click.option('--inactivefolder', default=YMLConfigReader.get_deactivated_modules_folder_name(),
               help='Rename inactive modules folder')
-def configure(loggingfolder, inactivefolder):
-    click.echo('configured ' + loggingfolder)
+def configure(changelingfolder, loggingfolder, inactivefolder):
+    click.echo('Renaming the folders with a command will be implemented in a later release. Stay tuned')
+    #configurehandler.configure(changelingfolder, inactivefolder, loggingfolder)
 
 
 @is_setup

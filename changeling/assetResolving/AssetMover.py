@@ -14,27 +14,30 @@ class AssetMover:
         self.profile_resolver = profile_resolver
 
     def activate_profile(self, profilename, dryrun):
-        modulelist = self.profile_resolver.resolve_profile(profilename)
         active_modules = AssetMover.determine_active_modules()
         inactive_modules = AssetMover.determine_inactive_modules()
-        to_activate = []
-        for modulename in modulelist:
-            if self.__needs_activation(modulename, inactive_modules):
-                to_activate.append(os.path.join(Pathfinder.get_deactivated_folder_path(), modulename))
-        to_deactivate = self.__needs_deactivation(modulelist, active_modules)
-        if dryrun:
-            click.echo('This run would have activated: ')
-            click.echo(print(*[os.path.basename(folder) for folder in to_activate], sep="\n"))
-            click.echo('This run would have deactivated: ')
-            click.echo(print(*[os.path.basename(folder) for folder in to_deactivate], sep="\n"))
+        if profilename == 'all':
+            self.__activate_all_modules(inactive_modules)
         else:
-            for module in to_deactivate:
-                click.echo("deactivating asset module: "+os.path.basename(module))
-                self.__deactivate_module(module)
-            for module in to_activate:
-                click.echo("activating asset module: "+os.path.basename(module))
-                self.__activate_module(module)
-            logging.getLogger('debug').info('Activated profile: '+profilename)
+            modulelist = self.profile_resolver.resolve_profile(profilename)
+            to_activate = []
+            for modulename in modulelist:
+                if self.__needs_activation(modulename, inactive_modules):
+                    to_activate.append(os.path.join(Pathfinder.get_deactivated_folder_path(), modulename))
+            to_deactivate = self.__needs_deactivation(modulelist, active_modules)
+            if dryrun:
+                click.echo('This run would have activated: ')
+                click.echo(print(*[os.path.basename(folder) for folder in to_activate], sep="\n"))
+                click.echo('This run would have deactivated: ')
+                click.echo(print(*[os.path.basename(folder) for folder in to_deactivate], sep="\n"))
+            else:
+                for module in to_deactivate:
+                    click.echo("deactivating asset module: "+os.path.basename(module))
+                    self.__deactivate_module(module)
+                for module in to_activate:
+                    click.echo("activating asset module: "+os.path.basename(module))
+                    self.__activate_module(module)
+                logging.getLogger('debug').info('Activated profile: '+profilename)
 
     def __needs_activation(self, modulename: str, inactive: list):
         if os.path.join(Pathfinder.get_deactivated_folder_path(), modulename) in inactive:
@@ -52,7 +55,7 @@ class AssetMover:
             for root in os.listdir(Pathfinder.get_wonderdraft_userfolder())
             # To exclude Mythkeeper download folder and the inactive assets
             if root != 'tempMKDownload'
-            and root != YMLConfigReader.get_profile_manager_directory_name()
+            and root != YMLConfigReader.get_changeling_manager_directory_name()
             # To exclude any rogue files
             and os.path.isdir(os.path.join(Pathfinder.get_wonderdraft_userfolder(),root))
         ]
@@ -79,3 +82,7 @@ class AssetMover:
             module,
             Pathfinder.get_wonderdraft_userfolder()
         )
+
+    def __activate_all_modules(self, inactive_modules: list):
+        for module in inactive_modules:
+            self.__activate_module(module)

@@ -25,7 +25,7 @@ class Pathfinder:
     def get_deactivated_folder_path():
         return os.path.join(
             Pathfinder.get_wonderdraft_userfolder(),
-            YMLConfigReader.get_profile_manager_directory_name(),
+            YMLConfigReader.get_changeling_manager_directory_name(),
             YMLConfigReader.get_deactivated_modules_folder_name()
         )
 
@@ -33,8 +33,17 @@ class Pathfinder:
     def get_logger_directory_path():
         return os.path.join(
             Pathfinder.get_wonderdraft_userfolder(),
-            YMLConfigReader.get_profile_manager_directory_name(),
+            YMLConfigReader.get_changeling_manager_directory_name(),
             YMLConfigReader.get_logger_directory_name()
         )
+
+    @staticmethod
+    def get_changeling_manager_directory_path():
+        return os.path.join(
+            Pathfinder.get_wonderdraft_userfolder(),
+            YMLConfigReader.get_changeling_manager_directory_name(),
+        )
+
+
 
 

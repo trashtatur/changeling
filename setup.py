@@ -7,6 +7,7 @@ setup(
     author= 'Andreas Hoerster',
     install_requires=[
         'PyYAML',
+        'colorama',
         'Click',
         'schema'
     ],

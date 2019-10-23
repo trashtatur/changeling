@@ -32,7 +32,6 @@ class InstallHandler:
         if not force and self.__check_if_profile_exists(cleaned_profilename):
             click.echo('Not installing profile: ' + profilename)
             click.echo('to do so anyway, exectute again with option --force')
-            pass
         else:
             YMLConfigWriter.write_profile(yml_data, cleaned_profilename)
 

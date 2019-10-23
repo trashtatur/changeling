@@ -1,5 +1,3 @@
-profile_manager_folder: ".wonderdraft_profile_manager"
-#this will be created inside the main folder!
-inactiveModulesFolder: "wonderdraft_profile_manager_INACTIVE"
-#this will be created inside the main folder!
-logging_folder: "wonderdraft_profile_manager_logs"
+changeling_manager_folder: .changeling_profile_manager
+inactive_modules_folder: changeling_profile_manager_INACTIVE
+logging_folder: changeling_profile_manager_logs
