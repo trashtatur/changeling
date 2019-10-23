@@ -27,10 +27,19 @@ def setup():
 
 @is_setup
 @click.command()
-@click.argument('filename', type=click.Path(exists=True))
+@click.argument('filename')
 @click.option('--force/--gentle', default=False, help='Force overwrite of existing profile or not. Gentle is default')
-def install_profile(filename, force):
-    installhandler.install(filename, force)
+@click.option('--from-current/--normal', default=False,
+              help='Lets you install from the current setup. Default is --normal')
+def install_profile(filename, force, from_current):
+    if from_current:
+        if click.confirm('Will install from current setup. Filename provided will be used as profile name. Is that ok?'):
+            installhandler.install_from_current(filename, force)
+        else:
+            filename_new = click.prompt('Please provide a name for the profile to be created')
+            installhandler.install_from_current(filename_new, force)
+    else:
+        installhandler.install(filename, force)
 
 
 @is_setup
@@ -61,17 +70,11 @@ def activate(profilename):
     click.echo('activate')
 
 
-@is_setup
-@click.command()
-@click.argument('profilename')
-def deactivate(profilename):
-    click.echo('deactivate')
 
 
 cli.add_command(setup)
 cli.add_command(install_profile)
 cli.add_command(activate)
-cli.add_command(deactivate)
 cli.add_command(configure)
 cli.add_command(list_profiles)
 cli.add_command(show_profile)

@@ -32,3 +32,7 @@ class ProfileResolver:
     def __find_full_path_for_foldername(self, foldername):
 
         return os.path.join(Pathfinder.get_wonderdraft_userfolder(), foldername)
+
+
+blaa = ProfileResolver()
+blaa.resolve_profile('dungeon')

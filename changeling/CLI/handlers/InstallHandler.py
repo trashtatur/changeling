@@ -5,7 +5,9 @@ import shutil
 import click
 import yaml
 
+from changeling.assetResolving.AssetMover import AssetMover
 from changeling.file_interactions.YMLConfigValidator import YMLConfigValidator
+from changeling.file_interactions.YMLConfigWriter import YMLConfigWriter
 from changeling.pathfinder import Pathfinder
 
 
@@ -23,6 +25,17 @@ class InstallHandler:
         else:
             click.echo('Profile is not correctly formatted. Make sure to write it properly')
 
+    def install_from_current(self, profilename, force):
+        cleaned_profilename = os.path.splitext(profilename)[0] + '.yml'
+        foldernames = [os.path.basename(folder) for folder in AssetMover.determine_active_modules()]
+        yml_data = {'name': profilename, 'modules': foldernames}
+        if not force and self.__check_if_profile_exists(cleaned_profilename):
+            click.echo('Not installing profile: ' + profilename)
+            click.echo('to do so anyway, exectute again with option --force')
+            pass
+        else:
+            YMLConfigWriter.write_profile(yml_data, cleaned_profilename)
+
     def open_file(self, path):
         if os.path.isfile(path):
             try:
@@ -33,7 +46,7 @@ class InstallHandler:
 
     def __act_according_to_mode(self, profilepath, mode):
         all_profiles = os.listdir(Pathfinder.get_profile_directory())
-        if not mode and os.path.basename(profilepath) in all_profiles:
+        if not mode and self.__check_if_profile_exists(profilepath):
             click.echo('Not installing profile: ' + os.path.splitext(profilepath)[0])
             click.echo('to do so anyway, exectute again with option --force')
             pass
@@ -41,9 +54,14 @@ class InstallHandler:
             click.echo('Installing profile: ' + os.path.splitext(profilepath)[0])
             shutil.copy(profilepath, Pathfinder.get_profile_directory())
 
-
     def __change_file_ending(self, profilepath):
 
-        new_name = profilepath[:-5]+'.yml'
+        new_name = profilepath[:-5] + '.yml'
         shutil.move(profilepath, new_name)
         return new_name
+
+    def __check_if_profile_exists(self, profilepath):
+        all_profiles = os.listdir(Pathfinder.get_profile_directory())
+        if os.path.basename(profilepath) in all_profiles:
+            return True
+        return False

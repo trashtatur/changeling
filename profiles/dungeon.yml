@@ -1,4 +1,4 @@
-name: dungeon
 modules:
   - "Dungeon Architecture"
   - "Dungeon Interior"
+name: dungeon
