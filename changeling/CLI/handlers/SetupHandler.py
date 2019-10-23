@@ -109,6 +109,9 @@ class SetupHandler:
         click.echo(Fore.LIGHTCYAN_EX+'To get help on any command just type the command with the switch '
                    + Fore.BLUE+'--help')
         click.echo('\n')
+        click.echo(Fore.LIGHTCYAN_EX+'To activate all assets use the following command: '
+                   + Fore.BLUE+'changeling activate all')
+        click.echo('\n')
         click.echo(Fore.LIGHTCYAN_EX+'And now have fun with changeling, and with wonderdraft')
         click.echo(Fore.CYAN + '---------------------')
         click.echo(Style.RESET_ALL)
