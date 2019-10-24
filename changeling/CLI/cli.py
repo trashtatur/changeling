@@ -10,6 +10,7 @@ from changeling.CLI.handlers.SetupHandler import SetupHandler
 from changeling.CLI.handlers.ShowProfileHandler import ShowProfileHandler
 from changeling.CLI.helper import is_setup, setup_logging, init_colorama
 from changeling.file_interactions.YMLConfigReader import YMLConfigReader
+from changeling.init.Initial import initialize
 
 setuphandler = SetupHandler()
 installhandler = InstallHandler()
@@ -19,6 +20,7 @@ activatehandler = ActivateHandler()
 configurehandler = ConfigureHandler()
 
 @setup_logging
+@initialize
 @init_colorama
 @click.group()
 def cli():

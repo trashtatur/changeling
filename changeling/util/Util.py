@@ -7,9 +7,4 @@ def get_root():
 
 
 def get_config_file_location():
-    return os.path.join(
-        get_root(),
-        'changeling',
-        'config',
-        'config.yml'
-    )
+    return os.path.join(os.getenv('APPDATA'), 'changeling', 'config.yml')

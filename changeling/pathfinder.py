@@ -1,17 +1,14 @@
 import os
 
 from changeling.file_interactions.YMLConfigReader import YMLConfigReader
-from changeling.util import Util
+from changeling.init import Initial
 
 
 class Pathfinder:
 
     @staticmethod
     def get_profile_directory():
-        return os.path.join(
-            Util.get_root(),
-            'profiles'
-        )
+        return Initial.CHANGELING_PROFILES_PATH
 
     @staticmethod
     def __appdata_path():
