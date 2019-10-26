@@ -10,16 +10,38 @@ A sample configuration file for changeling can look like this
 
 ### Profile example
 
-````yaml
+```yaml
 name: dungeon
-modules:
-  - "Dungeon Architecture"
-  - "Dungeon Interior"
-````
+assets:
+  - Dungeon Architecture
+  - Dungeon Interior
+brushes:
+  - jcunik-cracked-earth
+themes:
+  - Avoro Gates of Hell (2.0)
+```
 
-The modules listed, correspond to top level folders in the wonderdraft asset directory.
-Right now changeling assumes that wonderdraft uses its standard directory for assets. That 
-will be configurable in a later release.
+Changeling is able to manage assets, brushes and themes. But you don't have to manage them if you don't want to.
+You can leave out any of those sections and maybe have a profile that looks more like this:
+```yaml
+name: dungeon
+assets:
+  - Dungeon Architecture
+  - Dungeon Interior
+```
+or this:
+```yaml
+name: dungeon
+brushes:
+  - jcunik-cracked-earth
+```
+or ... for some weird reason... this:
+```yaml
+name: dungeon
+```
+Any section that Changeling does not find gets ignored. Changeling will assume you want all your things
+from that section to be active and act as such.
+
 
 ### Installation
 If you use the official releases of changeling [click here](https://github.com/trashtatur/changeling/releases/), you shouldn't need an installation of python.
