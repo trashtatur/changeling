@@ -74,7 +74,7 @@ def list_profiles():
 @click.command()
 @click.argument('profilename')
 def show_profile(profilename):
-    click.echo(Fore.MAGENTA)
+    click.echo(Fore.LIGHTMAGENTA_EX)
     click.echo(show_profile_handler.show_profile(profilename))
 
 
