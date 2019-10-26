@@ -16,14 +16,42 @@ class Pathfinder:
 
     @staticmethod
     def get_wonderdraft_userfolder():
-        return os.path.join(Pathfinder.__appdata_path(), 'Wonderdraft', 'assets')
+        return os.path.join(Pathfinder.__appdata_path(), 'Wonderdraft')
 
     @staticmethod
-    def get_deactivated_folder_path():
+    def get_wonderdraft_asset_folder():
+        return os.path.join(Pathfinder.get_wonderdraft_userfolder(), 'assets')
+
+    @staticmethod
+    def get_wonderdraft_themes_folder():
+        return os.path.join(Pathfinder.get_wonderdraft_userfolder(), 'themes')
+
+    @staticmethod
+    def get_wonderdraft_brushes_folder():
+        return os.path.join(Pathfinder.get_wonderdraft_userfolder(), 'brushes')
+
+    @staticmethod
+    def get_deactivated_assets_folder_path():
         return os.path.join(
             Pathfinder.get_wonderdraft_userfolder(),
             YMLConfigReader.get_changeling_manager_directory_name(),
-            YMLConfigReader.get_deactivated_modules_folder_name()
+            YMLConfigReader.get_deactivated_assets_folder_name()
+        )
+
+    @staticmethod
+    def get_deactivated_brushes_folder_path():
+        return os.path.join(
+            Pathfinder.get_wonderdraft_userfolder(),
+            YMLConfigReader.get_changeling_manager_directory_name(),
+            YMLConfigReader.get_deactivated_brushes_folder_name()
+        )
+
+    @staticmethod
+    def get_deactivated_themes_folder_path():
+        return os.path.join(
+            Pathfinder.get_wonderdraft_userfolder(),
+            YMLConfigReader.get_changeling_manager_directory_name(),
+            YMLConfigReader.get_deactivated_themes_folder_name()
         )
 
     @staticmethod

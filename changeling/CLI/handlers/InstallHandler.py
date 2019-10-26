@@ -5,10 +5,12 @@ import shutil
 import click
 import yaml
 
-from changeling.assetResolving.AssetMover import AssetMover
+from changeling.resolving.assetResolving.AssetResourceResolver import AssetResourceResolver
 from changeling.file_interactions.YMLConfigValidator import YMLConfigValidator
 from changeling.file_interactions.YMLConfigWriter import YMLConfigWriter
 from changeling.pathfinder import Pathfinder
+from changeling.resolving.brushesResolving.BrushesResourceResolver import BrushesResourceResolver
+from changeling.resolving.themesResolving.ThemesResourceResolver import ThemesResourceResolver
 
 
 class InstallHandler:
@@ -27,8 +29,16 @@ class InstallHandler:
 
     def install_from_current(self, profilename, force):
         cleaned_profilename = os.path.splitext(profilename)[0] + '.yml'
-        foldernames = [os.path.basename(folder) for folder in AssetMover.determine_active_modules()]
-        yml_data = {'name': profilename, 'modules': foldernames}
+        asset_folder_names = [os.path.basename(folder) for folder in AssetResourceResolver.determine_active()]
+        brushes_folder_names = [os.path.basename(folder) for folder in BrushesResourceResolver.determine_active()]
+        themes_file_names = [os.path.basename(file) for file in ThemesResourceResolver.determine_active()]
+        yml_data = {'name': profilename}
+        if len(asset_folder_names) > 0:
+            yml_data['assets'] = asset_folder_names
+        if len(brushes_folder_names) > 0:
+            yml_data['brushes'] = brushes_folder_names
+        if len(themes_file_names) > 0:
+            yml_data['themes'] = themes_file_names
         if not force and self.__check_if_profile_exists(cleaned_profilename):
             click.echo('Not installing profile: ' + profilename)
             click.echo('to do so anyway, exectute again with option --force')

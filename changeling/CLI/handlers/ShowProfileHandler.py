@@ -11,7 +11,7 @@ class ShowProfileHandler:
     def show_profile(self, profile):
         try:
             with open(os.path.join(Pathfinder.get_profile_directory(),profile+'.yml')) as profile:
-                click.echo(profile.read())
+                return profile.read()
         except FileNotFoundError as exception:
             click.echo('This profile is not installed into changeling')
             logging.getLogger('debug').exception('Could not show profile '+profile+' because it is not installed')

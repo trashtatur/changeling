@@ -23,9 +23,7 @@ def is_setup(func):
 
 
 def setup_logging(func):
-    if os.path.exists(os.path.join(Pathfinder.get_wonderdraft_userfolder(),
-                                   YMLConfigReader.get_changeling_manager_directory_name(),
-                                   YMLConfigReader.get_logger_directory_name())):
+    if os.path.exists(os.path.join(Pathfinder.get_logger_directory_path())):
         logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(levelname)-8s %(message)s',
                             datefmt='%a, %d %b %Y %H:%M:%S',
                             filename=os.path.join(Pathfinder.get_logger_directory_path(), 'debug.log'))

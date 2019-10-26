@@ -4,15 +4,21 @@ import os
 import yaml
 
 from changeling.pathfinder import Pathfinder
+from changeling.resolving.Profile import Profile
 
 
 class ProfileResolver:
 
-    def resolve_profile(self, profilename):
+    def resolve_profile(self, profilename) -> Profile:
         profilename_cleaned = os.path.splitext(profilename)[0]
         profile_yml = self.__open_profile_by_name(profilename_cleaned)
-        return profile_yml['modules']
 
+        return Profile(
+            profile_yml.get('name', 'NO_NAME'),
+            profile_yml.get('assets', []),
+            profile_yml.get('brushes', []),
+            profile_yml.get('themes', [])
+        )
 
     def __open_profile_by_name(self, profilename: str):
 
