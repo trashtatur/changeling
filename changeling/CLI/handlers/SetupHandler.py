@@ -135,7 +135,7 @@ class SetupHandler:
             'Assets, brushes and themes you disable wont disappear. They just get moved and can always be recovered!')
         click.echo(
             Fore.LIGHTCYAN_EX +
-            'Profiles are fluid. If you dont provide a section, chainchomp will always keep '
+            'Profiles are fluid. If you don\'t provide a section, changeling will always keep '
             'all things from that section active.')
         click.echo(Fore.LIGHTCYAN_EX + 'With the activate command, you can use the'
                    + Fore.LIGHTGREEN_EX + ' --dryrun' + Fore.LIGHTCYAN_EX
