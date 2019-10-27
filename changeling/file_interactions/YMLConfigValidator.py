@@ -16,5 +16,8 @@ class YMLConfigValidator:
     def profile_schema(cls):
         return Schema({
             'name': str,
-            'modules': [str]
+            Optional('assets'): [str],
+            Optional('brushes'): [str],
+            Optional('themes'): [str]
+
         })
