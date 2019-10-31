@@ -12,7 +12,7 @@ class SetupHandler:
 
     def setup(self):
         if not self.is_setup():
-            self.__display_welcome_message()
+            self.display_welcome_message()
         click.echo(Fore.LIGHTMAGENTA_EX+'Create changeling manager directory if it doesn\'t exist yet')
         if not self.__sanity_check_main_dir():
             self.__create_profile_manager_folderstructure()
@@ -125,7 +125,7 @@ class SetupHandler:
                and self.__sanity_check_inactive_brushes_dir() \
                and self.__sanity__check_logger_dir()
 
-    def __display_welcome_message(self):
+    def display_welcome_message(self):
         click.echo(Fore.CYAN + '-------------------------------------------------------------------')
         click.echo(Fore.CYAN + '---------------------WELCOME TO CHANGELING-------------------------')
         click.echo(Fore.CYAN + '-------------------------------------------------------------------')
@@ -152,5 +152,5 @@ class SetupHandler:
                    + Fore.LIGHTGREEN_EX + 'changeling activate all')
         click.echo('\n')
         click.echo(Fore.LIGHTCYAN_EX + 'And now have fun with changeling, and with wonderdraft')
-        click.echo(Fore.CYAN + '---------------------')
+        click.echo(Fore.CYAN + '-------------------------------------------------------------------')
         click.echo(Style.RESET_ALL)

@@ -48,6 +48,11 @@ def update_config():
 
 
 @click.command()
+def welcome():
+    setuphandler.display_welcome_message()
+
+
+@click.command()
 def reset_config():
     if click.confirm(Fore.RED + 'This will reset your config file. Do you want to proceed?'):
         reset_conf()
@@ -135,6 +140,7 @@ cli.add_command(show_profile)
 cli.add_command(edit_profile)
 cli.add_command(update_config)
 cli.add_command(version)
+cli.add_command(welcome)
 
 if __name__ == '__main__':
     cli()
