@@ -3,3 +3,5 @@ inactive_assets_folder: changeling_profile_manager_assets_INACTIVE
 inactive_brushes_folder: changeling_profile_manager_brushes_INACTIVE
 inactive_themes_folder: changeling_profile_manager_themes_INACTIVE
 logging_folder: changeling_profile_manager_logs
+profile-editor: notepad
+version: 0.3
